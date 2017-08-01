@@ -1,2 +1,6 @@
 ---
 lucky-word: Rajiv's Cloud
+
+wordConfig:
+  preamble: The lucky word is
+  luckyWord: You!!!
