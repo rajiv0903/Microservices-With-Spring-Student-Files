@@ -1,0 +1,11 @@
+---
+spring:
+  profiles:
+    active: northamerica
+  application:
+    name: 02-spring-config-client
+  cloud:
+    config:
+      uri: http://localhost:8001
+server:
+  port: 8002

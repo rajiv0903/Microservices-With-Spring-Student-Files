@@ -1,0 +1,61 @@
+#Run
+# mvn spring-boot:run -Drun.jvmArguments="-Dspring.profiles.active=subject" 
+# mvn spring-boot:run -Drun.jvmArguments="-Dspring.profiles.active=verb" 
+# mvn spring-boot:run -Drun.jvmArguments="-Dspring.profiles.active=article" 
+# mvn spring-boot:run -Drun.jvmArguments="-Dspring.profiles.active=adjective" 
+# mvn spring-boot:run -Drun.jvmArguments="-Dspring.profiles.active=noun" 
+
+# Run by opening 6 separate command prompts:
+# java -jar -Dspring.profiles.active=subject 07-spring-ribbon-lb-feign-hystrix-words-1.jar
+# java -jar -Dspring.profiles.active=verb 07-spring-ribbon-lb-feign-hystrix-words-1.jar
+# java -jar -Dspring.profiles.active=article 07-spring-ribbon-lb-feign-hystrix-words-1.jar
+# java -jar -Dspring.profiles.active=adjective 07-spring-ribbon-lb-feign-hystrix-words-1.jar
+# java -jar -Dspring.profiles.active=noun 07-spring-ribbon-lb-feign-hystrix-words-1.jar
+
+# Properties active for ALL profiles:
+---
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8001	# Expect the Spring Cloud Config server to be running on localhost, port 8001.  
+server:
+  port: ${PORT:${SERVER_PORT:0}}   # Select any available port if neither port nor server port are specified.
+
+# Allow Eureka to recognize two apps of the same type on the same host as separate instances:
+eureka:
+  instance:
+    metadataMap:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+# Depending on which profile is active, the application gives 
+# itself a different name when registering with Eureka
+---
+spring:
+  profiles: subject
+  application:
+    name: subject
+  
+---
+spring:
+  profiles: verb
+  application:
+    name: verb
+
+---
+spring:
+  profiles: article
+  application:
+    name: article
+
+---
+spring:
+  profiles: adjective
+  application:
+    name: adjective
+
+---
+spring:
+  profiles: noun
+  application:
+    name: noun
+    
